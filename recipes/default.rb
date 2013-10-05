@@ -17,20 +17,13 @@
 # limitations under the License.
 #
 
-xml = package "libxml2-dev" do
-  action :nothing
+%w{libxml2-dev libxslt-dev}.each do |pkg|
+  package pkg do
+    action :nothing
+  end.run_action(:install)
 end
-xml.run_action( :install )
 
-xslt = package "libxslt1-dev" do
-  action :nothing
+chef_gem "fog" do
+  version "1.10.1"
+  action :install
 end
-xslt.run_action( :install )
-
-fog = gem_package "fog" do
-  action :nothing
-end
-fog.run_action( :install )
-
-require 'rubygems'
-Gem.clear_paths
